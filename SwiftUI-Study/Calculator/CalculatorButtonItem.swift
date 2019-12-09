@@ -1,5 +1,5 @@
 //
-//  CalculatorModel.swift
+//  CalculatorButtonItem.swift
 //  SwiftUI-Study
 //
 //  Created by wave on 2019/12/9.
@@ -38,6 +38,7 @@ enum CalculatorButtonItem {
 }
 
 extension CalculatorButtonItem {
+    
     var title: String{
         switch self {
         case .digit(let value): return String(value)
@@ -48,14 +49,19 @@ extension CalculatorButtonItem {
     }
     
     var size: CGSize {
-        CGSize(width: 88, height: 88)
+        if case .digit(let value) = self, value == 0 {
+            return CGSize(width: 88 * 2 + 8, height: 88)
+        }
+        return CGSize(width: 88, height: 88)
     }
     
     var backgroundColor: Color {
         switch self {
-        case .digit, .dot:      return .gray
+        case .digit, .dot:      return .black
         case .op:               return .orange
-        case .command:          return Color.white.opacity(0.5)
+        case .command:          return .gray
         }
     }
 }
+
+extension CalculatorButtonItem: Hashable {}
